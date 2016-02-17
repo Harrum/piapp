@@ -2,17 +2,27 @@ package piApp;
 
 public enum Input 
 {
-	UP, DOWN, LEFT, RIGHT, ENTER, ESCAPE, UNKOWN;
+	UP, DOWN, LEFT, RIGHT, ENTER, BACK, ESCAPE, UNKOWN;
 	
-	public static Input getInputFromRemoteCode(int remoteCode)
+	public static Input getInputFromRemoteCode(String key)
 	{
 		Input input = Input.UNKOWN;
-		switch(remoteCode)
-		{
-		default: 	
-			input = Input.UNKOWN;
-			break;
-		}
+		if(key.equals("up"))
+			input = Input.UP;
+		else if(key.equals("down"))
+			input = Input.DOWN;
+		else if(key.equals("left"))
+			input = Input.LEFT;
+		else if(key.equals("right"))
+			input = Input.RIGHT;
+		else if(key.equals("select"))
+			input = Input.ENTER;
+		else if(key.equals("exit"))
+			input = Input.ESCAPE;
+		else if(key.equals("return"))
+			input = Input.BACK;
+		else
+			input = input.UNKOWN;
 		return input;
 	}
 	

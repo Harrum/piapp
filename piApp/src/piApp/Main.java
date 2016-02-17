@@ -51,7 +51,7 @@ public class Main {
 		} 
 		catch (IOException e) 
 		{
-			System.err.println("Unable to create the remote logger: " + e.getMessage());
+			System.out.println("Unable to create the remote logger: " + e.getMessage());
 		}
 		
 		//Create the window for the application

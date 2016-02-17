@@ -53,12 +53,14 @@ public class RemoteLogger extends InputLogger implements Runnable
 	
 	private void ProcesLine(String line)
 	{
+		//System.out.println("Received input: " + line);
 		if(line.contains(KEY_PRESSED))
 		{
 			line.trim();
 			String key = line.split(" +")[4];
 			System.out.println("Key pressed: " + key);
-			
+			Input input = Input.getInputFromRemoteCode(key);
+			inputPressed(input);
 			//key pressed
 		}
 	}
@@ -95,15 +97,11 @@ public class RemoteLogger extends InputLogger implements Runnable
 	
 	public static void main(String[] args) throws IOException 
 	{
-         String input = "DEBUG:   [          154105]     key released: up (1)";
-         input.trim();
-         System.out.println(input);
-         String key = input.split(" +")[5];
-         String[] list = input.split(" +");
-         for(String s : list)
-         {
-        	 System.out.println("==>   : " + s);
-         }
+         String line = "DEBUG:   [          154105]     key released: up (1)";
+         line.trim();
+         String key = line.split(" +")[4];
          System.out.println("Key pressed: " + key);
+         Input input = Input.getInputFromRemoteCode(key);
+         System.out.println("Input pressed: " + input.toString());
 	}
 }
