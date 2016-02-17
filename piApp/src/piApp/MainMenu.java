@@ -10,83 +10,62 @@ import javax.swing.ButtonModel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-public class MainMenu extends PiPanel
+import misc.ToggleButtonMenu;
+import misc.ToggleButtonMenu.ToggleButtonMenuListener;
+import panels.BuienRadarPanel;
+import panels.fotopanel.FotoPanel;
+
+public class MainMenu extends PiPanel implements ToggleButtonMenuListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4657165611978798220L;
 	private final int COLLUMNS = 2;
-	private ButtonGroup buttonGroup;
-	private int selectedButtonIndex = 0;
+	private ToggleButtonMenu buttonMenu;
 	
 	public MainMenu()
 	{
 		super();
-		buttonGroup = new ButtonGroup();
+		buttonMenu = new ToggleButtonMenu();
+		buttonMenu.SetListener(this);	
+	}
+	
+
+	@Override
+	protected void Init() 
+	{
 		createMainMenu();
+	}
+
+	@Override
+	protected void Exit() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	private void createMainMenu()
 	{		
 		GridLayout buttonLayout = new GridLayout(0, COLLUMNS);
 		super.setLayout(buttonLayout);
-		
-		createButton("Buienradar");
-		createButton("Films");
-		createButton("Foto's");
-		createButton("Leeg");
-		
-	}
-	
-	private void createButton(String buttonText)
-	{
 		Font f = new Font("Arial", Font.PLAIN, 30);
-		JToggleButton b = new JToggleButton(buttonText);
-		b.setFont(f);
-		buttonGroup.add(b);
-		super.add(b);
+		this.add(buttonMenu.createButton("Buienradar", f));
+		this.add(buttonMenu.createButton("Films", f));
+		this.add(buttonMenu.createButton("Foto's", f));
+		this.add(buttonMenu.createButton("Leeg", f));
+		
 	}
 	
-	private void EnterButtonAction()
+	@Override
+	public void ToggleMenuButtonPressed(String bText) 
 	{
-		Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-		
-		while(buttons.hasMoreElements())
+		if(bText == "Buienradar")
 		{
-			AbstractButton b = buttons.nextElement();
-			if(b.isSelected())
-			{
-				System.out.println("Button pressed: " + b.getText());
-				if(b.getText() == "Buienradar")
-				{
-					Window.getInstance().ChangePanel(new BuienRadarPanel());
-				}
-			}
+			Window.getInstance().EnterPanel(new BuienRadarPanel());
 		}
-	}
-	
-	private void SelectButton(int increment)
-	{
-		int index = 0;
-		if(selectedButtonIndex + increment > buttonGroup.getButtonCount() - 1)
-			index = -1 + ((selectedButtonIndex + increment) - (buttonGroup.getButtonCount() - 1));
-		else if(selectedButtonIndex + increment < 0)
-			index = buttonGroup.getButtonCount() + (selectedButtonIndex + increment);
-		else
-			index = selectedButtonIndex + increment;
-		
-		Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-		int i = 0;
-		
-		while(buttons.hasMoreElements())
+		if(bText == "Foto's")
 		{
-			AbstractButton b = buttons.nextElement();
-			if(i == index)
-			{
-				b.setSelected(true);
-				selectedButtonIndex = index;
-				break;
-			}
-			else
-				i++;
-			
+			Window.getInstance().EnterPanel(new FotoPanel());
 		}
 	}
 
@@ -96,19 +75,19 @@ public class MainMenu extends PiPanel
 		switch(input)
 		{
 			case RIGHT:
-				SelectButton(1);
+				buttonMenu.SelectButton(1);
 				break;
 			case LEFT:
-				SelectButton(-1);
+				buttonMenu.SelectButton(-1);
 				break;
 			case UP:
-				SelectButton(-COLLUMNS);
+				buttonMenu.SelectButton(-COLLUMNS);
 				break;
 			case DOWN:
-				SelectButton(COLLUMNS);
+				buttonMenu.SelectButton(COLLUMNS);
 				break;
 			case ENTER:
-				EnterButtonAction();
+				buttonMenu.EnterButtonAction();
 				break;
 			case ESCAPE:
 				break;

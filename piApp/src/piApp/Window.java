@@ -2,6 +2,8 @@ package piApp;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.util.List;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,14 +17,14 @@ public class Window implements PiInputListener
 	private int height;
 	
 	private static Window instance;
-	private PiPanel currentPanel;
+	private Stack<PiPanel> panels;
 	
 	public Window()
 	{
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		width = gd.getDisplayMode().getWidth();
 		height = gd.getDisplayMode().getHeight();
-		
+		panels = new Stack<PiPanel>();
 		System.out.printf("Created a window with the dimension: %d by %d", width, height);
 		
 		instance = this;
@@ -33,19 +35,31 @@ public class Window implements PiInputListener
 		return instance;
 	}
 	
-	public void ChangePanel(PiPanel newPanel)
-	{
-		frame.remove(currentPanel);
-		currentPanel = newPanel;
-		frame.add(currentPanel);
+	private void ChangePanel()
+	{	
+		frame.add(panels.peek());
 		frame.invalidate();
 		frame.repaint();
 		frame.setVisible(true);
 	}
 	
+	public void EnterPanel(PiPanel newPanel)
+	{
+		if(panels.size() > 0)
+			frame.remove(panels.peek());
+		panels.push(newPanel);
+		newPanel.Init();
+		ChangePanel();
+	}
+	
 	public void ExitPanel()
 	{
-		ChangePanel(new MainMenu());
+		if(panels.size() > 1 )
+		{
+			panels.peek().Exit();
+			frame.remove(panels.pop());
+			ChangePanel();
+		}
 	}
 	
 	public void createWindow()
@@ -61,9 +75,7 @@ public class Window implements PiInputListener
 		
 		frame.setBounds(0, 0, width, height);
 
-		currentPanel = new MainMenu();
-
-		frame.add(currentPanel);
+		EnterPanel(new MainMenu());
 
 		//5. Show it.
 		frame.setVisible(true);
@@ -79,6 +91,6 @@ public class Window implements PiInputListener
 			ExitPanel();
 		}
 		
-		currentPanel.InputRecieved(input);
+		panels.peek().InputRecieved(input);
 	}
 }

@@ -1,14 +1,12 @@
-package piApp;
+package panels;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -17,15 +15,22 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+
+import misc.ImgUtils;
+import piApp.Input;
+import piApp.PiPanel;
 
 public class BuienRadarPanel extends PiPanel implements Runnable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1127789063091959654L;
 	private List<BufferedImage> images;
 	private int frame;
 	private int count;
+	private boolean isRunning;
+	Thread t;
 	
 	public BuienRadarPanel()
 	{
@@ -33,10 +38,39 @@ public class BuienRadarPanel extends PiPanel implements Runnable
 		frame = 0;
 		count = 0;
 		images = new ArrayList<BufferedImage>();
+		isRunning = false;
+	}
+
+	@Override
+	protected void Init() 
+	{
 		CreatePanel();
 		
-		Thread t = new Thread(this);
+		isRunning = true;
+		t = new Thread(this);
+		t.setName("BuienRadarThread");
 		t.start();
+	}
+
+	@Override
+	protected void Exit()
+	{
+		isRunning = false;
+		while(t.isAlive())
+		{
+			try 
+			{
+				Thread.sleep(100);
+			} 
+			catch (InterruptedException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.printf("Thread %s has stopped. \n", t.getName());
+		t = null;	
+		images.clear();
 	}
 	
 	public void CreatePanel()
@@ -49,7 +83,7 @@ public class BuienRadarPanel extends PiPanel implements Runnable
 		    URLConnection uc = u.openConnection();
 		    InputStream raw = uc.getInputStream();
 		    InputStream rawin = new BufferedInputStream(raw);
-			in = ImageIO.createImageInputStream(raw);
+			in = ImageIO.createImageInputStream(rawin);
 			//in = ImageIO.createImageInputStream(new URL("http://buienradar.nl/image?fn=buienradarnl-1x1-ani550-verwachting.gif&type=forecastzozw"));
 			
 			reader.setInput(in);
@@ -60,7 +94,10 @@ public class BuienRadarPanel extends PiPanel implements Runnable
 			    BufferedImage image = null;
 				image = reader.read(i);
 				if(image != null)
-					images.add(image);
+				{				
+					Dimension Size = ImgUtils.getScaledDimension(new Dimension(image.getWidth(), image.getHeight()), new Dimension(this.Width, this.Height));
+					images.add(ImgUtils.Scale(image, Size));
+				}
 			    //images[i] = image;
 			    //ImageIO.write(image, "PNG", new File("output" + i + ".png"));
 			}
@@ -80,8 +117,11 @@ public class BuienRadarPanel extends PiPanel implements Runnable
 	@Override
     protected void paintComponent(Graphics g) 
 	{
-        super.paintComponent(g);
-        g.drawImage(images.get(frame), 0, 0, Width, Height, null);
+        super.paintComponent(g); 
+        BufferedImage img = images.get(frame);
+        int xPos = ((super.getWidth() - img.getWidth()) / 2);
+        int yPos = ((super.getHeight() - img.getHeight()) / 2);
+        g.drawImage(img, xPos, yPos, null);
         //g.drawImage(img, 0, 0, null); // see javadoc for more info on the parameters            
     }
 	
@@ -95,7 +135,7 @@ public class BuienRadarPanel extends PiPanel implements Runnable
 	@Override
 	public void run() 
 	{
-		while(true)
+		while(isRunning)
 		{
 			try 
 			{

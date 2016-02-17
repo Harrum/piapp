@@ -16,8 +16,11 @@ public abstract class PiPanel extends JPanel
 		Width = gd.getDisplayMode().getWidth();
 		Height = gd.getDisplayMode().getHeight();
 		super.setBounds(0, 0, Width, Height);
-		System.out.printf("Created a window with the dimension: %d by %d", Width, Height);
 	}
+	
+	protected abstract void Init();
+	
+	protected abstract void Exit();
 	
 	protected abstract void InputRecieved(Input input);
 }
