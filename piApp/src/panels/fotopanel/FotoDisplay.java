@@ -10,11 +10,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import misc.ImgUtils;
-import misc.StopWatch;
-import misc.ToggleButtonMenu;
 
 public class FotoDisplay extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -971485948776554670L;
+
 	private final int FOTO_OFFSET = 20;
 	
 	private int FotoWidth;

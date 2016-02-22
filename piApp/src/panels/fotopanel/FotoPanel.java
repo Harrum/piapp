@@ -2,20 +2,9 @@ package panels.fotopanel;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
-import javax.imageio.stream.FileImageOutputStream;
 import javax.swing.JPanel;
 
-import misc.ImageFileFilter;
 import misc.ToggleButtonMenu.ToggleButtonMenuListener;
 import piApp.Input;
 import piApp.PiPanel;
@@ -23,6 +12,10 @@ import piApp.Window;
 
 public class FotoPanel extends PiPanel implements ToggleButtonMenuListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3692690720243779023L;
 	private String path;
 	private FotoLijst ThumbLijst;
 	private FotoDisplay Display;

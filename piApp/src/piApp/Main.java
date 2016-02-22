@@ -41,6 +41,7 @@ public class Main {
 		
 		//Create the specific inputloggers who will trigger the main inputlogger
 		//The logger for the keyboard input
+		@SuppressWarnings("unused")
 		KeyboardLogger keyBoardLogger = new KeyboardLogger(inputLogger);
 		
 		//the logger for the remote inputs

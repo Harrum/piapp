@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 
 public abstract class PiPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1310488017099957600L;
 	protected int Width;
 	protected int Height;
 	

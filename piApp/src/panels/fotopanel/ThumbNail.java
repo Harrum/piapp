@@ -1,22 +1,15 @@
 package panels.fotopanel;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
 
-import javax.annotation.Resources;
 import javax.imageio.ImageIO;
 
-import piApp.Main;
 import misc.ImgUtils;
+import piApp.Main;
 
 public class ThumbNail 
 {
@@ -60,21 +53,7 @@ public class ThumbNail
 	private void CreateFolderThumb(Dimension thumbDim)
 	{
 		if(FOLDER_ICON == null)
-		{
-			File f = new File(System.getProperty("user.dir") + "//resources//normal_folder.png");
-			//File f = new File("//resources//normal_folder.png");
-			//InputStream input  = this.getClass().getResourceAsStream("/resources/normal_folder.png");
-			//ClassLoader CLDR = this.getClass().getClassLoader();
-		    //InputStream inputStream = CLDR.getResourceAsStream("/piApp/resources/normal_folder.png");	  		    
-			//InputStream input = Main.class,getClass().getResource("/piApp/resources/images/normal_folder.png");
-		    /*
-			try {
-				System.out.println("resource path is: " + CLDR.getResource("resources/normal_folder.txt").toURI().getPath());
-			} catch (URISyntaxException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}*/
-			
+		{			
 			try 
 			{
 				FOLDER_ICON = ImageIO.read(Main.class.getResource("/images/normal_folder.png"));

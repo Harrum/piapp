@@ -2,13 +2,6 @@ package piApp;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 import misc.ToggleButtonMenu;
 import misc.ToggleButtonMenu.ToggleButtonMenuListener;

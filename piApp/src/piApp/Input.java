@@ -22,7 +22,7 @@ public enum Input
 		else if(key.equals("return"))
 			input = Input.BACK;
 		else
-			input = input.UNKOWN;
+			input = Input.UNKOWN;
 		return input;
 	}
 	

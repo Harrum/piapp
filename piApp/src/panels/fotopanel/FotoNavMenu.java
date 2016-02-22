@@ -1,17 +1,10 @@
 package panels.fotopanel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JToggleButton;
 
 import misc.ToggleButtonMenu;
@@ -19,6 +12,10 @@ import misc.ToggleButtonMenu.ToggleButtonMenuListener;
 
 public class FotoNavMenu extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4525604971125729260L;
 	private ToggleButtonMenu buttonMenu;
 	
 	public FotoNavMenu(int width, int height)

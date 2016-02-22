@@ -5,40 +5,23 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.Stroke;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.Stack;
-import java.util.Timer;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import piApp.Config;
-import piApp.Window;
 import misc.ImageFileFilter;
-import misc.ImgUtils;
-import misc.StopWatch;
+import piApp.Config;
 
 public class FotoLijst extends JPanel
 {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4096072342502342153L;
 	private final int FRAME_OFFSET = 5;
 	private final int THUMB_OFFSET = 3;
 	

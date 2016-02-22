@@ -7,10 +7,6 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
 
-import panels.BuienRadarPanel;
-import panels.fotopanel.FotoPanel;
-import piApp.Window;
-
 public class ToggleButtonMenu 
 {
 	public interface ToggleButtonMenuListener
@@ -118,7 +114,6 @@ public class ToggleButtonMenu
 				}
 				else
 					i++;
-				
 			}
 		}
 	}

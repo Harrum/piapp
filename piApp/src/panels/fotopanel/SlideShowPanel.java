@@ -1,13 +1,11 @@
 package panels.fotopanel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +15,6 @@ import misc.ImgUtils;
 import misc.StopWatch;
 import piApp.Input;
 import piApp.PiPanel;
-import piApp.Window;
 
 public class SlideShowPanel extends PiPanel implements Runnable
 {
